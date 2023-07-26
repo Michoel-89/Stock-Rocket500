@@ -39,7 +39,10 @@ class Stock(db.Model, SerializerMixin):
     ticker = db.Column(db.String)
     name = db.Column(db.String)
     industry = db.Column(db.String)
+    price = db.Column(db.Integer)
     market_cap = db.Column(db.Integer)
+
+
     
     owners = db.relationship('UserStock', backref='stock', cascade='all' )
 

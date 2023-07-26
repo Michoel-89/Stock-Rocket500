@@ -74,10 +74,8 @@ def signup():
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
-    img_url = data.get('img_url')
     new_user = User(
-        username=username,
-        img_url=img_url,
+        username=username
     )
     new_user.password_hash = password
     try:
