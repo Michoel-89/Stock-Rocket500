@@ -46,7 +46,7 @@ const headerStyle = {
     backgroundColor: "#f0f0f0", // Use a light color for the header row background
   };
   const hTickerStyle = {
-    minWidth: "20%",
+    minWidth: "35%",
     padding: "0 10px",
     borderRight: "1px solid #ccc", // Add right border to the ticker
   };
@@ -79,7 +79,7 @@ const containerStyle = {
   };
 
 const tickerStyle = {
-    minWidth: "20%",
+    minWidth: "35%",
     padding: "0 10px",
     borderRight: "1px solid #ccc", // Add right border to the ticker
   };

@@ -50,11 +50,12 @@ function Signup() {
         });
       }
     return (
-    <div>
-        <form onSubmit={handleSubmit}>
+    <div style={containerStyle}>
+        <form style={formStyle} onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="username">Username:</label>
-          <input
+          <label style={labelStyle} htmlFor="username">Username:</label>
+          <input 
+            style={inputStyle}
             type="text"
             id="username"
             value={username}
@@ -62,17 +63,60 @@ function Signup() {
           />
         </div>
         <div>
-          <label htmlFor="password">Password:</label>
+          <label style={labelStyle} htmlFor="password">Password:</label>
           <input
+            style={inputStyle}
             type="password"
             id="password"
             value={password}
             onChange={handlePasswordChange}
           />
         </div>
-        <button type="submit">Sign up</button>
+        <button style={submitButtonStyle} type="submit">Sign up</button>
       </form>
     </div>
     )
 }
+
+const containerStyle = {
+  backgroundColor: 'silver',
+  paddingTop: '5%',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  height: '100vh',
+};
+
+const formStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: '1rem',
+  padding: '1rem',
+  border: '1px solid #ccc',
+  borderRadius: '5px',
+  backgroundColor: '#f5f5f5',
+  paddingBottom: '.6%'
+};
+
+const labelStyle = {
+  fontWeight: 'bold',
+};
+
+const inputStyle = {
+  width: '250px',
+  padding: '0.5rem',
+  border: '1px solid #ccc',
+  borderRadius: '3px',
+};
+
+const submitButtonStyle = {
+  padding: '0.5rem 1rem',
+  margin: '2%',
+  border: 'none',
+  borderRadius: '3px',
+  cursor: 'pointer',
+  backgroundColor: '#4CAF50',
+  color: 'white',
+};
 export default Signup

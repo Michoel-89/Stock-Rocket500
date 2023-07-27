@@ -13,11 +13,15 @@ function LoggedInNavbar() {
     }
     return (
       <div style={navbarStyle}>
-          <div style={{ marginRight: '50%' }} >
+          <div style={{ marginRight: '40%' }} >
               <h2 >StockRocket500</h2>
           </div>
           <div>
               <Link style={{ textDecoration: 'none', color: 'black', fontSize: '1.2rem',  }} to={'/'} >Home
+              </Link>
+          </div>
+          <div>
+              <Link style={{ textDecoration: 'none', color: 'black', fontSize: '1.2rem',  }} to={'/profile'} >Profile
               </Link>
           </div>
           <div >

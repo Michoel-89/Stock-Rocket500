@@ -5,6 +5,7 @@ import DisplayStocks from './componants/DisplayStocks';
 import IndividualStock from './componants/IndividualStock';
 import Login from './componants/Login';
 import Signup from './componants/Signup';
+import Profile from './componants/Profile';
 import { useState, useEffect } from 'react';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom'
@@ -44,6 +45,7 @@ function App() {
           </Route>
           <Route path='/login' element={<Login />} />
           <Route path="/signup" element={<Signup />}/>
+          <Route path="/profile" element={<Profile />}/>
         </Routes>
       </Context.Provider>
     </div>
