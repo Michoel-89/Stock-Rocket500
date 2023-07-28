@@ -53,7 +53,7 @@ function Signup() {
     <div style={containerStyle}>
         <form style={formStyle} onSubmit={handleSubmit}>
         <div>
-          <label style={labelStyle} htmlFor="username">Username:</label>
+          <label style={labelStyle} htmlFor="username">Create Username:</label>
           <input 
             style={inputStyle}
             type="text"
@@ -63,7 +63,7 @@ function Signup() {
           />
         </div>
         <div>
-          <label style={labelStyle} htmlFor="password">Password:</label>
+          <label style={labelStyle} htmlFor="password">Create Password:</label>
           <input
             style={inputStyle}
             type="password"

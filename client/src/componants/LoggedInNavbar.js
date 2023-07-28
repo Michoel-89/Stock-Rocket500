@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { useContext } from "react"
 import { Context } from "../App"
 function LoggedInNavbar() {
+    const [hover, setHover] = useState(false)
     const user = useContext(Context)
-    console.log(user)
     function handleLogoutClick() {
         fetch('logout', {
             method: 'DELETE',
@@ -24,9 +25,15 @@ function LoggedInNavbar() {
               <Link style={{ textDecoration: 'none', color: 'black', fontSize: '1.2rem',  }} to={'/profile'} >Profile
               </Link>
           </div>
-          <div >
+          {hover && (<div onMouseLeave={() => setHover(false)} >
               <button onClick={handleLogoutClick} style={logoutTextStyle} >Logout</button>
-          </div>
+          </div>)} 
+          {!hover && (<img
+                onMouseEnter={() => setHover(true)}
+                src="https://th.bing.com/th/id/OIP.SLvBdi3X6WCSwcP0F8cy1wHaHa?w=164&h=180&c=7&r=0&o=5&pid=1.7"
+                alt="login pic"
+                style={logoutImageStyle}
+                 />)}
       </div>
     );
   }
@@ -46,4 +53,9 @@ function LoggedInNavbar() {
     border: 'none',
     cursor: 'pointer'
   }
+  const logoutImageStyle = {
+    width: "30px", 
+    height: "30px", 
+    borderRadius: '60%'
+  };
 export default LoggedInNavbar

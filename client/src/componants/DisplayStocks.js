@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { Context } from "../App"
 function DisplayStocks() {
-    const con = useContext(Context)
+    const context = useContext(Context)
     return <>
             <div style={headerStyle}>
                 <div style={hTickerStyle}>
@@ -18,8 +18,11 @@ function DisplayStocks() {
                 </div>
             </div>
 
-        {con.stocks !== null ? con.stocks.map((stock) => {
+        {context.stocks !== null ? context.stocks.map((stock) => {
             return <div key={stock.id} style={containerStyle}>
+                {/* <div>
+                    <button style={BuyBtn}>Buy</button>
+                </div> */}
                 <div style={tickerStyle}>
                     <h4>{stock.ticker}</h4>
                     <p>{stock.name}</p>
@@ -37,7 +40,10 @@ function DisplayStocks() {
         }) : <h2>Loading stocks...</h2>}
     </>
 }
-const headerStyle = {
+  const BuyBtn = {
+
+}
+  const headerStyle = {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
@@ -45,6 +51,7 @@ const headerStyle = {
     padding: "0 10px",
     backgroundColor: "#f0f0f0", // Use a light color for the header row background
   };
+ 
   const hTickerStyle = {
     minWidth: "35%",
     padding: "0 10px",

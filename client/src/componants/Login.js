@@ -84,11 +84,14 @@ function Login() {
           <button type="submit" style={submitButtonStyle}>
             Login
           </button>
-          <button onClick={handleSignupClick} style={submitButtonStyle}>
-            Signup
-          </button>
         </div>
       </form>
+      <div style={signUpDiv}>
+      <span style={{ marginRight: '5px' }}>Don't have an account?</span>
+      <button onClick={handleSignupClick} style={signUpButtonStyle}>
+            Sign up
+      </button>
+      </div>
     </div>
   );
 }
@@ -107,9 +110,10 @@ const formStyle = {
   flexDirection: 'column',
   alignItems: 'center',
   gap: '1rem',
-  padding: '1rem',
+  paddingTop: '2rem',
+  padding: '.8rem 2.5rem',
   border: '1px solid #ccc',
-  borderRadius: '5px',
+  borderRadius: '5px 5px 0px 0px',
   backgroundColor: '#f5f5f5',
 };
 
@@ -133,5 +137,22 @@ const submitButtonStyle = {
   backgroundColor: '#4CAF50',
   color: 'white',
 };
+
+const signUpDiv = {
+  width: '33.9%',
+  backgroundColor: '#f5f5f5',
+  borderRadius: '0px 0px 5px 5px',
+}
+
+const signUpButtonStyle = {
+  padding: '10px',
+  margin: '2%',
+  border: 'none',
+  borderRadius: '3px',
+  cursor: 'pointer',
+  backgroundColor: 'grey',
+  color: 'white',
+};
+
 
 export default Login;
