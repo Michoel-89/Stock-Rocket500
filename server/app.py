@@ -27,6 +27,7 @@ def buy_stock():
     data = request.get_json()
     try:
         user_stock = UserStock(
+            shares=data.get('shares'),
             user_id=data.get('user_id'),
             stock_id=data.get('stock_id')
         )
@@ -36,8 +37,22 @@ def buy_stock():
     except ValueError:
         return {'error': 'unable to process your input'}, 422
 
+@app.patch('/user_stocks/<int:id>')
+def sell_shares(id):
+    stock_to_update = UserStock.query.filter_by(id=id).first()
+    data = request.get_json()
+    if not stock_to_update:
+        return {'error': 'not user found'}, 404
+    if not data:
+        return {'error': 'unable to process your input'}, 422
+    for attr in data:
+        setattr(stock_to_update, attr, data[attr])
+    db.session.add(stock_to_update)
+    db.session.commit()
+    return stock_to_update.to_dict(), 200
+
 @app.delete('/user_stocks/<int:id>')
-def delete_stock(id):
+def sell_all_stock(id):
     stock_to_delete = UserStock.query.filter_by(id=id).first()
     try:
         db.session.delete(stock_to_delete)

@@ -6,8 +6,8 @@ class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, nullable=False, unique=True)
-    _password_hash = db.Column(db.String, nullable=False)
+    username = db.Column(db.String(50), nullable=False, unique=True)
+    _password_hash = db.Column(db.String(50), nullable=False)
 
     my_stocks = db.relationship('UserStock', backref='user', cascade='all' )
 
@@ -27,6 +27,7 @@ class UserStock(db.Model, SerializerMixin):
     __tablename__ = 'user_stocks'
 
     id = db.Column(db.Integer, primary_key=True)
+    shares = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     stock_id = db.Column(db.Integer, db.ForeignKey('stocks.id'), nullable=False)
 

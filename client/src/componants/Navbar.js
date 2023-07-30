@@ -27,6 +27,7 @@ function Navbar() {
   );
 }
 const navbarStyle = {
+    
     display: "flex",
     alignItems: "center",
     justifyContent: "space-around",
