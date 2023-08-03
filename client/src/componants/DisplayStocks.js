@@ -1,9 +1,13 @@
 import { useContext, useState } from "react"
 import { Context } from "../App"
+import { Link } from "react-router-dom"
+import Search from "./Search"
 function DisplayStocks() {
     const context = useContext(Context)
     const [buyShares, setBuyShares] = useState(null)
     const [shares, setShares] = useState('')
+    const [hover, setHover] = useState(false)
+    const [search, setSearch] = useState('')
 
     function handleMouseEnter(id) {
       setBuyShares(id)
@@ -39,7 +43,40 @@ function DisplayStocks() {
         context.user.my_stocks.push(r)
     })
     }
+
+    function handleUpdatePrice(id) {
+      fetch(`/stock/update/${id}`)
+      .then(r => r.json())
+      .then(r => {
+        const updatedStocks = context.stocks.map((stock) => {
+          if (stock.id === id) {
+            stock.price = r['updated price']
+          }
+          return stock
+        })
+        context.setStocks(updatedStocks)
+      })
+      .catch((error) => {
+        console.log(error)
+        return alert("Sorry we couldn't find your stock")
+      })
+    }
+    
+    function handleSearch(value) {
+      setSearch(value)
+    }
+
+    function handleClearBtnClick() {
+      setSearch('')
+    }
+
+    if (!context.stocks) {
+      return <h2>loading...</h2>
+    }
+    let SearchedStocks = context.stocks.filter((stock) => stock.name.toLowerCase().includes(search.toLowerCase()))
+
     return <>
+            <Search handleSearch={handleSearch} search={search} handleClearBtnClick={handleClearBtnClick} />
             <div style={headerStyle}>
                 <div style={hTickerStyle}>
                     <h3>Company:</h3>
@@ -55,7 +92,7 @@ function DisplayStocks() {
                 </div>
             </div>
 
-        {context.stocks !== null ? context.stocks.map((stock) => {
+        {SearchedStocks.map((stock) => {
             return <div key={stock.id} style={containerStyle}>
                 <div >
                         {buyShares !== stock.id && context.user && <button  onMouseLeave={() => setBuyShares(null)} onMouseEnter={() => handleMouseEnter(stock.id)} style={buyBtn}>Buy</button>}
@@ -64,12 +101,14 @@ function DisplayStocks() {
                         <button style={buttonForShares} onClick={() => handleBuy(stock.id)}>Buy</button></div>
                         }
                 </div>
-                <div style={tickerStyle}>
+                <div style={!context.user ? tickerStyle : loggedInTickerStyle}>
                     <h4>{stock.ticker}</h4>
                     <p>{stock.name}</p>
+                    <Link to={`/stock/${stock.id}`}><button onMouseEnter={() => setHover(stock.id)} onMouseLeave={() => setHover(false)} style={hover === stock.id ? hoverInfoBtn : InfoBtn }>Stock chart</button></Link>
                 </div>
                 <div style={priceStyle}>
                     <h4>{stock.price}</h4>
+                    <button onMouseEnter={() => setHover(stock.name)} onMouseLeave={() => setHover(false)} onClick={() => handleUpdatePrice(stock.id)} style={hover === stock.name ? hoverRefreshBtn: refreshBtn}>Refresh</button>
                 </div>
                 <div style={industryStyle}>
                     <h4>{stock.industry}</h4>
@@ -78,9 +117,34 @@ function DisplayStocks() {
                     <h4>{stock.market_cap}</h4>
                 </div>
             </div>
-        }) : <h2>Loading stocks...</h2>}
+        })}
     </>
 }
+
+const hoverRefreshBtn = {
+
+  cursor: 'pointer',
+  color: 'blue',
+  borderRadius: '4px',
+  border: ' 1px solid black'
+  };
+
+const refreshBtn = {
+  borderRadius: '4px',
+  border: ' 1px solid black'
+  };
+
+const hoverInfoBtn = {
+  cursor: 'pointer',
+  color: 'blue',
+  borderRadius: '4px',
+  border: ' 1px solid black'
+  };
+
+const InfoBtn = {
+  borderRadius: '4px',
+  border: ' 1px solid black'
+  };
 
 const buyBtn = {
     cursor: 'pointer',
@@ -89,18 +153,19 @@ const buyBtn = {
     color: 'blue',
     borderRadius: '10px',
     border: ' 2px solid blue'
-  }
+  };
 
-  const divForShares = {
+const divForShares = {
       display: 'flex',
       flexDirection: 'row'
-  }
+  };
+
 const inputForShares = {
   padding: '6px 2px',
   border: "1px solid #ccc",
   borderRadius: "4px",
   width: '25%',
-  }  
+  };
 
 const buttonForShares = {
   padding: "6px 10px",
@@ -109,7 +174,7 @@ const buttonForShares = {
   backgroundColor: "blue",
   color: "#fff",
   cursor: "pointer",
-  }
+  };
 
 const headerStyle = {
     display: "flex",
@@ -153,26 +218,32 @@ const containerStyle = {
     padding: "10px",
   };
 
+const loggedInTickerStyle = {
+  minWidth: "29%",
+  padding: "0 10px",
+  borderRight: "1px solid #ccc",
+  };
+
 const tickerStyle = {
-    minWidth: "29%",
+    minWidth: "35%",
     padding: "0 10px",
     borderRight: "1px solid #ccc", // Add right border to the ticker
   };
   
-  const priceStyle = {
+const priceStyle = {
     flex: '1',
     padding: '1.5% 10px',
     borderRight: "1px solid #ccc",
   };
   
-  const industryStyle = {
+const industryStyle = {
     flex: '1',
     minWidth: "30%",
     padding: '1.5% 10px', 
     borderRight: "1px solid #ccc", // Add right border to the industry
   };
   
-  const marketCapStyle = {
+const marketCapStyle = {
     flex: '1',
     minWidth: "15%",
     padding: "0 10px", // Add padding to the left and right of the market cap

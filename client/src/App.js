@@ -2,7 +2,7 @@ import './App.css';
 import Navbar from './componants/Navbar';
 import LoggedInNavbar from './componants/LoggedInNavbar'
 import DisplayStocks from './componants/DisplayStocks';
-import IndividualStock from './componants/IndividualStock';
+import StockChart from './componants/StockChart';
 import Login from './componants/Login';
 import Signup from './componants/Signup';
 import Profile from './componants/Profile';
@@ -40,9 +40,8 @@ function App() {
       <Context.Provider value={{user, setUser, stocks, setStocks}} >
         {user == null ? <Navbar />: <LoggedInNavbar />}
         <Routes>
-          <Route path='/' element={<DisplayStocks />}>
-            <Route path='/stock/<int:id>' element={<IndividualStock />} />
-          </Route>
+          <Route path='/' element={<DisplayStocks />} />
+          <Route path='/stock/:id' element={<StockChart />} />
           <Route path='/login' element={<Login />} />
           <Route path="/signup" element={<Signup />}/>
           <Route path="/profile" element={<Profile />}/>

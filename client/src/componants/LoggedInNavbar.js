@@ -1,16 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useContext } from "react"
 import { Context } from "../App"
 function LoggedInNavbar() {
     const [hover, setHover] = useState(false)
-    const user = useContext(Context)
+    const context = useContext(Context)
+    const navigate = useNavigate()
     function handleLogoutClick() {
         fetch('logout', {
             method: 'DELETE',
           }).then(() => {
-            user.setUser(null)});
+            context.setUser(null)});
+            navigate('/')
     }
     return (
       <div style={navbarStyle}>

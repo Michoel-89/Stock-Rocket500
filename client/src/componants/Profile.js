@@ -1,11 +1,13 @@
 import { useContext, useState } from "react";
 import { Context } from "../App";
+import { Link } from "react-router-dom";
 
 function Profile() {
   const context = useContext(Context);
   const [username, setUsername] = useState(context.user.username);
   const [editMode, setEditMode] = useState(false);
   const [sellShares, setSellShares] = useState(null)
+  const [hover, setHover] = useState(false)
   const [shares, setShares] = useState('')
 
   function handleMouseEnter(id) {
@@ -81,7 +83,6 @@ function Profile() {
         if(r.ok) {
                const updatedStocks = context.user.my_stocks.filter((stock) => stock.id !== id)
                context.setUser({...context.user, my_stocks: updatedStocks})
-               alert('All shares sold')
             }
         else{
             return console.error("stock doesn't exist");
@@ -114,7 +115,7 @@ function Profile() {
         )}
       </div>
       <h2>Hello {username}.</h2>
-      <p>You own shares in these companies</p>
+      <p>You own shares in these companies.</p>
       <div style={headerStyle}>
                 <div style={hTickerStyle}>
                     <h3>Company:</h3>
@@ -144,7 +145,8 @@ function Profile() {
                     </div>
                     <div style={tickerStyle}>
                         <h4>{stock.stock.ticker}</h4>
-                    <p>{stock.stock.name}</p>
+                        <p>{stock.stock.name}</p>
+                        <Link to={`/stock/${stock.id}`}><button onMouseEnter={() => setHover(stock.id)} onMouseLeave={() => setHover(false)} style={hover === stock.id ? hoverInfoBtn : InfoBtn }>Stock chart</button></Link>
                     </div>
                     <div style={sharesStyle}>
                       <h4>{stock.shares}</h4>
@@ -164,6 +166,18 @@ function Profile() {
   );
 }
 
+const hoverInfoBtn = {
+  cursor: 'pointer',
+  color: 'blue',
+  borderRadius: '4px',
+  border: ' 1px solid black'
+}
+
+const InfoBtn = {
+  borderRadius: '4px',
+  border: ' 1px solid black'
+}
+
 const usernameDiv = {
   display: "flex",
   flexDirection: "row",
@@ -173,10 +187,9 @@ const usernameDiv = {
 
 const labelStyle = {
   cursor: "pointer",
-  padding: "5px 12px",
+  padding: "4px 12px",
   border: "1px solid #ccc",
   borderRadius: "4px",
-  marginRight: "2px",
   backgroundColor: "#f0f0f0",
   color: "#333",
 };
@@ -184,8 +197,7 @@ const labelStyle = {
 const inputStyle = {
   border: "1px solid #ccc",
   borderRadius: "4px",
-  padding: "5px 12px",
-  marginRight: "2px",
+  padding: "4px 12px",
   fontSize: 'large'
 };
 

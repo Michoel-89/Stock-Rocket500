@@ -6,6 +6,7 @@ from random import randint
 fake = Faker()
 import yfinance as yf
 # def format_market_cap(market_cap):
+# 1e2 e means exponant
 #             if market_cap >= 1e12:
 #                 return f"{market_cap / 1e12:.2f} Trillion"
 #             elif market_cap >= 1e9:
@@ -25,8 +26,8 @@ import yfinance as yf
 if __name__ == '__main__':
     
     with app.app_context():
-          
-        UserStock.query.delete()
+        pass
+        # UserStock.query.delete()
         # dic = get_stock_data()
         # print(dic)
         # for k,v in dic.items():
@@ -64,12 +65,12 @@ if __name__ == '__main__':
         #     user.password_hash = '123'
         #     db.session.add(user)
         #     db.session.commit()
-        for i in range(20):
-            userStock = UserStock(
-                shares=randint(1, 20),
-                user_id=randint(1, 1),
-                stock_id=randint(1, 500)
-            )
-            db.session.add(userStock)
-            db.session.commit()
+        # for i in range(20):
+        #     userStock = UserStock(
+        #         shares=randint(1, 20),
+        #         user_id=randint(1, 1),
+        #         stock_id=randint(1, 500)
+        #     )
+        #     db.session.add(userStock)
+        #     db.session.commit()
         

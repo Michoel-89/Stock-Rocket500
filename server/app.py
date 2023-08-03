@@ -1,8 +1,8 @@
 from config import app, db
-from flask import request, session
+from flask import request, session, jsonify
 from models import db, User, UserStock, Stock
 from flask_migrate import Migrate
-
+import yfinance as yf
 @app.route('/')
 def home():
     return '<h1>Home</h1>'
@@ -12,10 +12,27 @@ def get_all_stocks():
     stocks = [s.to_dict() for s in Stock.query.all()]
     return stocks, 200
 
-@app.get('/stocks/<int:id>')
+@app.get('/stock/<int:id>')
 def get_stock(id):
-    stock = Stock.query.filter_by(id=id).first().to_dict()
-    return stock, 200
+    stock = Stock.query.filter_by(id=id).first()
+    stock_ticker = yf.Ticker(stock.ticker)
+    hist = stock_ticker.history(period='1y')
+    if hist.empty:
+        return {'error': f'Sorry unable to find {stock_ticker}'}, 404
+    return [stock.to_dict(), hist.to_json()], 200
+
+@app.get('/stock/update/<int:id>')
+def update_stock_price(id):
+    try:
+        stock = Stock.query.filter_by(id=id).first()
+        stock_ticker = yf.Ticker(stock.ticker)
+        hist = stock_ticker.history(period='1m')['Close'][0]
+        stock.price = round(hist, 2)
+        db.session.add(stock)
+        db.session.commit()
+        return {'updated price': stock.price}, 200
+    except ValueError:
+        return {'error': f'Sorry unable to find {stock_ticker}'}, 404
 
 @app.get('/user_stocks')
 def get_all_user_stocks():
