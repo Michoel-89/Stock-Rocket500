@@ -1,0 +1,38 @@
+body {
+  background-color: rgb(240, 240, 240);
+}
+
+.refreshBtn {
+    border-radius: 4px;
+    border: 1px solid black;
+  }
+  
+.refreshBtn:hover {
+    cursor: pointer;
+    color: rgb(0, 220, 255);
+    border-radius: 4px;
+    border: 1px solid black;
+  }
+  
+.infoBtn:hover {
+    cursor: pointer;
+    color: rgb(0, 220, 255);
+    border-radius: 4px;
+    border: 1px solid black;
+  }
+  
+.infoBtn {
+    border-radius: 4px;
+    border: 1px solid black;
+  }
+
+  .priceIncreased {
+    color: greenyellow;
+  }
+  
+  .priceDecreased {
+    color: red;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  
+  

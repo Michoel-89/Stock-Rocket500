@@ -1,0 +1,58 @@
+
+.chartStyle {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+
+.btn1 {
+  display: inline;
+  margin-right: 10%;
+  border-radius: 10px;
+  cursor: pointer;
+  border: grey solid 1px;
+}
+
+.btn2 {
+  display: inline;
+  margin: 0 7%;
+  border-radius: 10px;
+  cursor: pointer;
+  border: grey solid 1px;
+}
+
+.btn3 {
+  display: inline;
+  margin: 0 7%;
+  border-radius: 10px;
+  cursor: pointer;
+  border: grey solid 1px;
+}
+
+.btn4 {
+  display: inline;
+  margin-left: 10%;
+  border-radius: 10px;
+  cursor: pointer;
+  border: grey solid 1px;
+}
+
+.btn1:hover {
+    background-color: #42a5f5;
+    color: #ffffff; 
+  }
+  
+  .btn2:hover {
+    background-color: #42a5f5;
+    color: #ffffff;
+  }
+  
+  .btn3:hover {
+    background-color: #42a5f5;
+    color: #ffffff; 
+  }
+  
+  .btn4:hover {
+    background-color: #42a5f5;
+    color: #ffffff; 
+  }

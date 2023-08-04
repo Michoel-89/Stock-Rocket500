@@ -24,6 +24,10 @@ function LoggedInNavbar() {
               </Link>
           </div>
           <div>
+            <Link style={{ textDecoration: 'none', color: 'black', fontSize: '1.2rem',  }} to={'/displayStocks'} >Browse stocks
+            </Link>
+          </div>
+          <div>
               <Link style={{ textDecoration: 'none', color: 'black', fontSize: '1.2rem',  }} to={'/profile'} >Profile
               </Link>
           </div>
@@ -33,7 +37,7 @@ function LoggedInNavbar() {
           {!hover && (<img
                 onMouseEnter={() => setHover(true)}
                 src="https://th.bing.com/th/id/OIP.SLvBdi3X6WCSwcP0F8cy1wHaHa?w=164&h=180&c=7&r=0&o=5&pid=1.7"
-                alt="login pic"
+                alt="logout pic"
                 style={logoutImageStyle}
                  />)}
       </div>
@@ -43,7 +47,7 @@ function LoggedInNavbar() {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-around",
-    backgroundColor: "gray", 
+    backgroundColor: "rgb(0, 220, 255)", 
     padding: '0'
   };
 
@@ -51,7 +55,7 @@ function LoggedInNavbar() {
     fontSize: '1.2rem',
     color: 'black',
     fontWeight: 'normal',
-    backgroundColor: 'grey',
+    backgroundColor: 'rgb(0, 220, 255)',
     border: 'none',
     cursor: 'pointer'
   }

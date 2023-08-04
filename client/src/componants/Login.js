@@ -97,12 +97,12 @@ function Login() {
 }
 
 const containerStyle = {
-  backgroundColor: 'silver',
+  backgroundColor: 'blue',
   paddingTop: '5%',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  height: '100vh',
+  height: '78vh',
 };
 
 const formStyle = {
@@ -114,7 +114,8 @@ const formStyle = {
   padding: '.8rem 2.5rem',
   border: '1px solid #ccc',
   borderRadius: '5px 5px 0px 0px',
-  backgroundColor: '#f5f5f5',
+  backgroundColor: 'rgb(0, 220, 255)',
+  marginLeft: '5%'
 };
 
 const labelStyle = {
@@ -134,14 +135,15 @@ const submitButtonStyle = {
   border: 'none',
   borderRadius: '3px',
   cursor: 'pointer',
-  backgroundColor: '#4CAF50',
+  backgroundColor: 'blue',
   color: 'white',
 };
 
 const signUpDiv = {
   width: '33.9%',
-  backgroundColor: '#f5f5f5',
+  backgroundColor: 'rgb(0, 220, 255)',
   borderRadius: '0px 0px 5px 5px',
+  marginLeft: '5%'
 }
 
 const signUpButtonStyle = {
@@ -150,7 +152,7 @@ const signUpButtonStyle = {
   border: 'none',
   borderRadius: '3px',
   cursor: 'pointer',
-  backgroundColor: 'grey',
+  backgroundColor: 'blue',
   color: 'white',
 };
 

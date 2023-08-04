@@ -79,12 +79,12 @@ function Signup() {
 }
 
 const containerStyle = {
-  backgroundColor: 'silver',
+  backgroundColor: 'blue',
   paddingTop: '5%',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  height: '100vh',
+  height: '78vh',
 };
 
 const formStyle = {
@@ -95,8 +95,9 @@ const formStyle = {
   padding: '1rem',
   border: '1px solid #ccc',
   borderRadius: '5px',
-  backgroundColor: '#f5f5f5',
-  paddingBottom: '.6%'
+  backgroundColor: 'rgb(0, 220, 255)',
+  paddingBottom: '.6%',
+  marginLeft: '5%'
 };
 
 const labelStyle = {
@@ -116,7 +117,7 @@ const submitButtonStyle = {
   border: 'none',
   borderRadius: '3px',
   cursor: 'pointer',
-  backgroundColor: '#4CAF50',
+  backgroundColor: 'blue',
   color: 'white',
 };
 export default Signup

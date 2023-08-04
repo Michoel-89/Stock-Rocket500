@@ -2,20 +2,26 @@ import { useContext, useState } from "react"
 import { Context } from "../App"
 import { Link } from "react-router-dom"
 import Search from "./Search"
+import './DisplayStocks.css'
 function DisplayStocks() {
     const context = useContext(Context)
     const [buyShares, setBuyShares] = useState(null)
     const [shares, setShares] = useState('')
-    const [hover, setHover] = useState(false)
     const [search, setSearch] = useState('')
+    const [priceChange, setPriceChange] = useState({
+      price: '',
+      id: ''
+    })
 
     function handleMouseEnter(id) {
       setBuyShares(id)
       setShares('')
     }
+
     function handleSharesChange(e) {
       setShares(e.target.value)
     }
+
     function handleBuy(stockId) {
       if (shares === '') {
         alert('Invalid input')
@@ -50,11 +56,22 @@ function DisplayStocks() {
       .then(r => {
         const updatedStocks = context.stocks.map((stock) => {
           if (stock.id === id) {
+            if (stock.price <= r['updated price']) {
+              setPriceChange({style: "priceIncreased", id: id})
+            } else {
+              setPriceChange({style: "priceDecreased", id: id})
+            } 
             stock.price = r['updated price']
           }
           return stock
         })
         context.setStocks(updatedStocks)
+        setTimeout(() => {
+          setPriceChange({
+            price: '',
+            id: ''
+        })
+        }, 800);
       })
       .catch((error) => {
         console.log(error)
@@ -73,6 +90,7 @@ function DisplayStocks() {
     if (!context.stocks) {
       return <h2>loading...</h2>
     }
+
     let SearchedStocks = context.stocks.filter((stock) => stock.name.toLowerCase().includes(search.toLowerCase()))
 
     return <>
@@ -104,11 +122,11 @@ function DisplayStocks() {
                 <div style={!context.user ? tickerStyle : loggedInTickerStyle}>
                     <h4>{stock.ticker}</h4>
                     <p>{stock.name}</p>
-                    <Link to={`/stock/${stock.id}`}><button onMouseEnter={() => setHover(stock.id)} onMouseLeave={() => setHover(false)} style={hover === stock.id ? hoverInfoBtn : InfoBtn }>Stock chart</button></Link>
+                    <Link to={`/stock/${stock.id}`}><button className="infoBtn">Stock chart</button></Link>
                 </div>
                 <div style={priceStyle}>
-                    <h4>{stock.price}</h4>
-                    <button onMouseEnter={() => setHover(stock.name)} onMouseLeave={() => setHover(false)} onClick={() => handleUpdatePrice(stock.id)} style={hover === stock.name ? hoverRefreshBtn: refreshBtn}>Refresh</button>
+                    <h4 className={priceChange.id === stock.id ? priceChange.style : ''}>{stock.price}</h4>
+                    <button onClick={() => handleUpdatePrice(stock.id)} className="refreshBtn">Refresh</button>
                 </div>
                 <div style={industryStyle}>
                     <h4>{stock.industry}</h4>
@@ -120,31 +138,6 @@ function DisplayStocks() {
         })}
     </>
 }
-
-const hoverRefreshBtn = {
-
-  cursor: 'pointer',
-  color: 'blue',
-  borderRadius: '4px',
-  border: ' 1px solid black'
-  };
-
-const refreshBtn = {
-  borderRadius: '4px',
-  border: ' 1px solid black'
-  };
-
-const hoverInfoBtn = {
-  cursor: 'pointer',
-  color: 'blue',
-  borderRadius: '4px',
-  border: ' 1px solid black'
-  };
-
-const InfoBtn = {
-  borderRadius: '4px',
-  border: ' 1px solid black'
-  };
 
 const buyBtn = {
     cursor: 'pointer',
@@ -182,7 +175,6 @@ const headerStyle = {
     justifyContent: "space-between",
     border: "1px solid #ccc",
     padding: "0 10px",
-    backgroundColor: "#f0f0f0", // Use a light color for the header row background
   };
  
 const hTickerStyle = {

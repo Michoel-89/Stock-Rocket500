@@ -3,17 +3,41 @@ from flask import request, session, jsonify
 from models import db, User, UserStock, Stock
 from flask_migrate import Migrate
 import yfinance as yf
-@app.route('/')
-def home():
-    return '<h1>Home</h1>'
 
 @app.get('/stocks')
 def get_all_stocks():
     stocks = [s.to_dict() for s in Stock.query.all()]
     return stocks, 200
 
-@app.get('/stock/<int:id>')
-def get_stock(id):
+@app.get('/stock/days/<int:id>')
+def get_stock_chart_days(id):
+    stock = Stock.query.filter_by(id=id).first()
+    stock_ticker = yf.Ticker(stock.ticker)
+    hist = stock_ticker.history(period='5d')
+    if hist.empty:
+        return {'error': f'Sorry unable to find {stock_ticker}'}, 404
+    return [stock.to_dict(), hist.to_json()], 200
+
+@app.get('/stock/3mo/<int:id>')
+def get_stock_chart_3mo(id):
+    stock = Stock.query.filter_by(id=id).first()
+    stock_ticker = yf.Ticker(stock.ticker)
+    hist = stock_ticker.history(period='3mo')
+    if hist.empty:
+        return {'error': f'Sorry unable to find {stock_ticker}'}, 404
+    return [stock.to_dict(), hist.to_json()], 200
+
+@app.get('/stock/6mo/<int:id>')
+def get_stock_chart_6mo(id):
+    stock = Stock.query.filter_by(id=id).first()
+    stock_ticker = yf.Ticker(stock.ticker)
+    hist = stock_ticker.history(period='6mo')
+    if hist.empty:
+        return {'error': f'Sorry unable to find {stock_ticker}'}, 404
+    return [stock.to_dict(), hist.to_json()], 200
+
+@app.get('/stock/year/<int:id>')
+def get_stock_chart_year(id):
     stock = Stock.query.filter_by(id=id).first()
     stock_ticker = yf.Ticker(stock.ticker)
     hist = stock_ticker.history(period='1y')

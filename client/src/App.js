@@ -39,8 +39,10 @@ function App() {
 
       <Context.Provider value={{user, setUser, stocks, setStocks}} >
         {user == null ? <Navbar />: <LoggedInNavbar />}
+        
         <Routes>
-          <Route path='/' element={<DisplayStocks />} />
+          <Route path='/' element={<img alt='stock arrow pointing up' src='https://static.vecteezy.com/system/resources/previews/001/330/263/original/stock-market-graph-trading-chart-for-business-and-finance-free-vector.jpg' width={1263} height={495} />}/>
+          <Route path='/displayStocks' element={<DisplayStocks />} />
           <Route path='/stock/:id' element={<StockChart />} />
           <Route path='/login' element={<Login />} />
           <Route path="/signup" element={<Signup />}/>
