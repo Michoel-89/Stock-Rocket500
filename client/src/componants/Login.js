@@ -39,9 +39,8 @@ function Login() {
       .then((r) => {
         setUsername('');
         setPassword('');
-        console.log('signed in');
         user.setUser(r);
-        navigate(`/`);
+        navigate(`/profile`);
       })
       .catch((error) => {
         console.error('Error occurred during login:', error);
@@ -97,7 +96,7 @@ function Login() {
 }
 
 const containerStyle = {
-  backgroundColor: 'blue',
+  backgroundColor: 'rgb(204, 204, 204)',
   paddingTop: '5%',
   display: 'flex',
   flexDirection: 'column',
@@ -113,7 +112,7 @@ const formStyle = {
   paddingTop: '2rem',
   padding: '.8rem 2.5rem',
   border: '1px solid #ccc',
-  borderRadius: '5px 5px 0px 0px',
+  borderRadius: '20px 20px 0px 0px',
   backgroundColor: 'rgb(0, 220, 255)',
   marginLeft: '5%'
 };
@@ -135,14 +134,14 @@ const submitButtonStyle = {
   border: 'none',
   borderRadius: '3px',
   cursor: 'pointer',
-  backgroundColor: 'blue',
+  backgroundColor: 'rgb(204, 204, 204)',
   color: 'white',
 };
 
 const signUpDiv = {
   width: '33.9%',
   backgroundColor: 'rgb(0, 220, 255)',
-  borderRadius: '0px 0px 5px 5px',
+  borderRadius: '0px 0px 20px 20px',
   marginLeft: '5%'
 }
 
@@ -152,7 +151,7 @@ const signUpButtonStyle = {
   border: 'none',
   borderRadius: '3px',
   cursor: 'pointer',
-  backgroundColor: 'blue',
+  backgroundColor: 'rgb(204, 204, 204)',
   color: 'white',
 };
 

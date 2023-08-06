@@ -47,6 +47,7 @@ function DisplayStocks() {
       })
       .then(r => {
         context.user.my_stocks.push(r)
+        setShares('')
     })
     }
 
@@ -95,20 +96,6 @@ function DisplayStocks() {
 
     return <>
             <Search handleSearch={handleSearch} search={search} handleClearBtnClick={handleClearBtnClick} />
-            <div style={headerStyle}>
-                <div style={hTickerStyle}>
-                    <h3>Company:</h3>
-                </div>
-                <div style={hPriceStyle}>
-                    <h3>Price:</h3>
-                </div>
-                <div style={hIndustryStyle}>
-                    <h3>Sector:</h3>
-                </div>
-                <div style={hMarketCapStyle}>
-                    <h3>Market cap:</h3>
-                </div>
-            </div>
 
         {SearchedStocks.map((stock) => {
             return <div key={stock.id} style={containerStyle}>
@@ -121,22 +108,31 @@ function DisplayStocks() {
                 </div>
                 <div style={!context.user ? tickerStyle : loggedInTickerStyle}>
                     <h4>{stock.ticker}</h4>
-                    <p>{stock.name}</p>
-                    <Link to={`/stock/${stock.id}`}><button className="infoBtn">Stock chart</button></Link>
+                </div>
+                <div style={nameStyle}>
+                  <p>{stock.name}</p>
                 </div>
                 <div style={priceStyle}>
                     <h4 className={priceChange.id === stock.id ? priceChange.style : ''}>{stock.price}</h4>
-                    <button onClick={() => handleUpdatePrice(stock.id)} className="refreshBtn">Refresh</button>
                 </div>
                 <div style={industryStyle}>
                     <h4>{stock.industry}</h4>
                 </div>
                 <div style={marketCapStyle}>
-                    <h4>{stock.market_cap}</h4>
+                    <h4>Market cap: {stock.market_cap}</h4>
+                </div>
+                <div style={chartAndRefreshDiv}>
+                    <Link to={`/stock/${stock.id}`}><button className="infoBtn">Stock chart</button></Link>
+                    <button onClick={() => handleUpdatePrice(stock.id)} className="refreshBtn">Refresh</button>
                 </div>
             </div>
         })}
     </>
+}
+
+const chartAndRefreshDiv = {
+  display: 'flex',
+  flexDirection: 'column',
 }
 
 const buyBtn = {
@@ -168,77 +164,47 @@ const buttonForShares = {
   color: "#fff",
   cursor: "pointer",
   };
-
-const headerStyle = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    border: "1px solid #ccc",
-    padding: "0 10px",
-  };
- 
-const hTickerStyle = {
-    minWidth: "35%",
-    padding: "0 10px",
-    borderRight: "1px solid #ccc", // Add right border to the ticker
-  };
-  
-const hPriceStyle = {
-    flex: '1',
-    padding: '0 10px',
-    borderRight: "1px solid #ccc",
-  };
-  
-const hIndustryStyle = {
-    flex: '1',
-    minWidth: "30%",
-    padding: '0 10px', 
-    borderRight: "1px solid #ccc", // Add right border to the industry
-  };
-  
-const hMarketCapStyle = {
-    flex: '1',
-    minWidth: "15%",
-    padding: "0 10px", // Add padding to the left and right of the market cap
-  };
   
 const containerStyle = {
     display: 'flex', // default display is row
     alignItems: "center",
     justifyContent: "space-between",
     border: "1px solid #ccc",
-    padding: "10px",
   };
 
 const loggedInTickerStyle = {
-  minWidth: "29%",
   padding: "0 10px",
-  borderRight: "1px solid #ccc",
+  position: 'absolute',
+  left: '10%'
   };
 
 const tickerStyle = {
-    minWidth: "35%",
     padding: "0 10px",
-    borderRight: "1px solid #ccc", // Add right border to the ticker
+    position: 'absolute',
+    left: '10%'
   };
   
+const nameStyle = {
+  position: 'absolute',
+  left: '20%'
+}
+
 const priceStyle = {
-    flex: '1',
     padding: '1.5% 10px',
-    borderRight: "1px solid #ccc",
+    position: 'absolute',
+    left: '45%'
   };
   
 const industryStyle = {
-    flex: '1',
-    minWidth: "30%",
     padding: '1.5% 10px', 
-    borderRight: "1px solid #ccc", // Add right border to the industry
+    position: 'absolute',
+    left: '55%'
   };
   
 const marketCapStyle = {
-    flex: '1',
-    minWidth: "15%",
     padding: "0 10px", // Add padding to the left and right of the market cap
+    position: 'absolute',
+    left: '75%'
   };
   
   export default DisplayStocks;

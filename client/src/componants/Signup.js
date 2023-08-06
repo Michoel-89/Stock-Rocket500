@@ -42,7 +42,7 @@ function Signup() {
           setUsername('');
           setPassword('');
           user.setUser(r)
-          navigate('/')
+          navigate('/profile')
         })
         .catch((error) => {
           console.error('Error occurred during signup:', error);
@@ -79,7 +79,7 @@ function Signup() {
 }
 
 const containerStyle = {
-  backgroundColor: 'blue',
+  backgroundColor: 'rgb(204, 204, 204)',
   paddingTop: '5%',
   display: 'flex',
   flexDirection: 'column',
@@ -94,7 +94,7 @@ const formStyle = {
   gap: '1rem',
   padding: '1rem',
   border: '1px solid #ccc',
-  borderRadius: '5px',
+  borderRadius: '20px',
   backgroundColor: 'rgb(0, 220, 255)',
   paddingBottom: '.6%',
   marginLeft: '5%'
@@ -117,7 +117,7 @@ const submitButtonStyle = {
   border: 'none',
   borderRadius: '3px',
   cursor: 'pointer',
-  backgroundColor: 'blue',
+  backgroundColor: 'rgb(204, 204, 204)',
   color: 'white',
 };
 export default Signup

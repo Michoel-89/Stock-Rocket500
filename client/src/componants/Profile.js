@@ -1,13 +1,12 @@
 import { useContext, useState } from "react";
 import { Context } from "../App";
-import { Link } from "react-router-dom";
+import "./DisplayStocks.css";
 
 function Profile() {
   const context = useContext(Context);
   const [username, setUsername] = useState(context.user.username);
   const [editMode, setEditMode] = useState(false);
   const [sellShares, setSellShares] = useState(null)
-  const [hover, setHover] = useState(false)
   const [shares, setShares] = useState('')
 
   function handleMouseEnter(id) {
@@ -116,40 +115,24 @@ function Profile() {
       </div>
       <h2>Hello {username}.</h2>
       <p>You own shares in these companies.</p>
-      <div style={headerStyle}>
-                <div style={hTickerStyle}>
-                    <h3>Company:</h3>
-                </div>
-                <div style={hSharesStyle}>
-                    <h3>Shares:</h3>
-                </div>
-                <div style={hPriceStyle}>
-                    <h3>Price:</h3>
-                </div>
-                <div style={hIndustryStyle}>
-                    <h3>Sector:</h3>
-                </div>
-                <div style={hMarketCapStyle}>
-                    <h3>Market cap:</h3>
-                </div>
-            </div>
             {context.user.my_stocks.map((stock) => {
               return  <div key={stock.id} style={containerStyle}>
                     <div style={sellBtns}>
+                        <button onClick={() => handleDeleteAll(stock.id)} style={sellAllBtn}>Sell All</button>
                         {sellShares !== stock.id && <button onMouseEnter={() => handleMouseEnter(stock.id)} onMouseLeave={() => setSellShares(null)} style={sellBtn}>Sell</button>}
                         {sellShares === stock.id && <div style={divForShares} onMouseEnter={() => handleMouseEnter(stock.id)} onMouseLeave={() => setSellShares(null)}>
                         <input style={inputForShares} onChange={(e) => handleSharesChange(e.target.value, stock.shares)} value={shares} placeholder="Shares" name="sellSharesInput"autoComplete="off"/>
                         <button style={buttonForShares} onClick={() => handleDelete(stock.id, stock.shares)}>sell</button></div>
                         }
-                        <button onClick={() => handleDeleteAll(stock.id)} style={sellAllBtn}>Sell All</button>
                     </div>
                     <div style={tickerStyle}>
                         <h4>{stock.stock.ticker}</h4>
+                    </div>
+                    <div style={nameStyle}>
                         <p>{stock.stock.name}</p>
-                        <Link to={`/stock/${stock.id}`}><button onMouseEnter={() => setHover(stock.id)} onMouseLeave={() => setHover(false)} style={hover === stock.id ? hoverInfoBtn : InfoBtn }>Stock chart</button></Link>
                     </div>
                     <div style={sharesStyle}>
-                      <h4>{stock.shares}</h4>
+                      <h4>Shares: {stock.shares}</h4>
                     </div>
                     <div style={priceStyle}>
                         <h4>{stock.stock.price}</h4>
@@ -158,24 +141,12 @@ function Profile() {
                         <h4>{stock.stock.industry}</h4>
                     </div>
                     <div style={marketCapStyle}>
-                        <h4>{stock.stock.market_cap}</h4>
+                        <h4>Market cap: {stock.stock.market_cap}</h4>
                     </div>
                 </div>
             })}
     </>
   );
-}
-
-const hoverInfoBtn = {
-  cursor: 'pointer',
-  color: 'blue',
-  borderRadius: '4px',
-  border: ' 1px solid black'
-}
-
-const InfoBtn = {
-  borderRadius: '4px',
-  border: ' 1px solid black'
 }
 
 const usernameDiv = {
@@ -209,64 +180,23 @@ const buttonStyle = {
   color: "#fff",
   cursor: "pointer",
 };
-const headerStyle = {
-  display: "flex",
+
+const containerStyle = {
+  display: 'flex', // default display is row
   alignItems: "center",
   justifyContent: "space-between",
   border: "1px solid #ccc",
-  padding: "0 10px",
-  backgroundColor: "#f0f0f0", // Use a light color for the header row background
-};
-
-const hTickerStyle = {
-  minWidth: "34.6%",
-  paddingLeft: '7.5%',
-  padding: "0 10px",
-  borderRight: "1px solid #ccc", // Add right border to the ticker
-};
-
-const hSharesStyle = {
-  flex: '1',
-  padding: '0 10px',
-  borderRight: "1px solid #ccc",
-}
-
-const hPriceStyle = {
-  flex: '1',
-  padding: '0 10px',
-  borderRight: "1px solid #ccc",
-};
-
-const hIndustryStyle = {
-  flex: '1',
-  minWidth: "30.5%",
-  padding: '0 10px', 
-  borderRight: "1px solid #ccc", // Add right border to the industry
-};
-
-const hMarketCapStyle = {
-  flex: '1',
-  minWidth: "14.4%",
-  padding: "0 10px", // Add padding to the left and right of the market cap
-};
-
-const containerStyle = {
-    display: 'flex', // default display is row
-    alignItems: "center",
-    justifyContent: "space-between",
-    border: "1px solid #ccc",
-    padding: "5px 0px",
 };
 
 const sellBtns = {
   display: 'flex',
-  flexDirection: 'column',
+  flexDirection: 'row',
   
 }
 
 const sellBtn = {
   cursor: 'pointer',
-  padding: '12px 20px',
+  padding: '10px 20px',
   fontSize: 'large',
   color: 'red',
   borderRadius: '10px',
@@ -277,12 +207,11 @@ const inputForShares = {
   padding: '6px 2px',
   border: "1px solid #ccc",
   borderRadius: "4px",
-  width: '50%',
-  margin: 'auto',
+  width: '25%',
 }
 
 const buttonForShares = {
-  padding: "4px 10px",
+  padding: "6px 10px",
   border: "none",
   borderRadius: "4px",
   backgroundColor: "red",
@@ -297,45 +226,50 @@ const divForShares = {
 }
   
 const sellAllBtn = {
-    marginTop: '5px',
+    marginRight: '2px',
     cursor: 'pointer',
-    padding: '12px 8px',
+    padding: '14px 8px',
     fontSize: 'large',
     color: 'red',
     borderRadius: '10px',
     border: ' 2px solid red'
 }
 
+const sharesStyle = {
+  padding: "0 10px",
+  position: 'absolute',
+  left: '15%'
+}
+
 const tickerStyle = {
-    minWidth: "29%",
-    padding: "0 10px",
-    borderRight: "1px solid #ccc", // Add right border to the ticker
+  padding: "0 10px",
+  position: 'absolute',
+  left: '25%'
 };
 
-const sharesStyle = {
-    minWidth: "5%",
-    flex: '1',
-    padding: '1.5% 10px',
-    borderRight: "1px solid #ccc",
+const nameStyle = {
+position: 'absolute',
+left: '35%'
 }
-  
+
 const priceStyle = {
-    flex: '1',
-    padding: '1.5% 10px',
-    borderRight: "1px solid #ccc",
+  padding: '1.5% 10px',
+  position: 'absolute',
+  left: '55%'
 };
-  
+
 const industryStyle = {
-    flex: '1',
-    minWidth: "30%",
-    padding: '1.5% 10px', 
-    borderRight: "1px solid #ccc", // Add right border to the industry
+  padding: '1.5% 10px', 
+  position: 'absolute',
+  left: '65%'
+};
+
+const marketCapStyle = {
+  padding: "0 10px", // Add padding to the left and right of the market cap
+  position: 'absolute',
+  left: '82%'
 };
   
-const marketCapStyle = {
-    flex: '1',
-    minWidth: "15%",
-    padding: "0 10px", // Add padding to the left and right of the market cap
-};
+
 
 export default Profile;
