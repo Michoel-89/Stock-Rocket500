@@ -9,6 +9,8 @@ import Profile from './componants/Profile';
 import { useState, useEffect } from 'react';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom'
+import stockImg from '/home/michoel/final-project/client/src/componants/stock-market-graph-trading-chart-for-business-and-finance-free-vector.jpg'
+
 export const Context = React.createContext()
 
 
@@ -32,7 +34,7 @@ function App() {
     .then(r => {
       setUser(r)
     })
-      }, [setUser])
+      }, [stocks])
   return (
 
     <div className="App">
@@ -41,7 +43,7 @@ function App() {
         {user == null ? <Navbar />: <LoggedInNavbar />}
         
         <Routes>
-          <Route path='/' element={<img alt='stock arrow pointing up' src='https://static.vecteezy.com/system/resources/previews/001/330/263/original/stock-market-graph-trading-chart-for-business-and-finance-free-vector.jpg' width={1263} height={495} />}/>
+          <Route path='/' element={<img alt='stock graph with an arrow pointing up' src={stockImg} width={1263} height={495} />}/>
           <Route path='/displayStocks' element={<DisplayStocks />} />
           <Route path='/stock/:id' element={<StockChart />} />
           <Route path='/login' element={<Login />} />

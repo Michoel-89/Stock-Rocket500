@@ -22,33 +22,85 @@ function DisplayStocks() {
       setShares(e.target.value)
     }
 
-    function handleBuy(stockId) {
+    function handleBuy(stockId, stockPrice) {
+      const price = Number(shares) * Number(stockPrice)
+      const updatedBalance = Number(context.user.account_balance) - Number(price)
       if (shares === '') {
-        alert('Invalid input')
+        alert('Invalid input');
+        return;
       }
-      const newStock = {
-        shares: Number(shares),
-        user_id: context.user.id,
-        stock_id: stockId
+      if (context.user.account_balance < price) {
+        alert('Insufficient funds');
+        return;
       }
-      fetch('/user_stocks', {
-        method: 'POST',
+      fetch(`/user/${context.user.id}`, {
+        method: 'PATCH',
         headers: {
-          'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify(newStock)
+        body: JSON.stringify({
+          account_balance: updatedBalance
+        })
       })
+      .then(r => r.json())
       .then(r => {
-        if (r.ok) {
-          return r.json()
+        const existingStock = context.user.my_stocks.find(stock => stockId === stock.stock.id);
+        if (existingStock) {
+          const updatedShares = Number(existingStock.shares) + Number(shares);
+          
+          fetch(`/user_stocks/${existingStock.id}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              shares: updatedShares
+            })
+          })
+          .then(r => r.json())
+          .then((r) => {
+            const updatedStocks = context.user.my_stocks.map((stock) => {
+              if (stock.id === r.id) {
+                return r
+              } else {
+                return stock
+              }
+            })
+            context.setUser({
+              ...context.user, my_stocks: updatedStocks, account_balance: updatedBalance
+            })
+            setShares('');
+          });
         } else {
-          alert('Invalid input')
+          const newStock = {
+            shares: Number(shares),
+            user_id: context.user.id,
+            stock_id: stockId
+          };
+          
+          fetch('/user_stocks', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newStock)
+          })
+          .then(r => {
+            if (r.ok) {
+              return r.json();
+            } else {
+              alert('Invalid input');
+            }
+          })
+          .then(newStockData => {
+            context.user.my_stocks.push(newStockData);
+            context.setUser({
+              ...context.user, account_balance: updatedBalance
+            })
+            setShares('');
+          });
         }
       })
-      .then(r => {
-        context.user.my_stocks.push(r)
-        setShares('')
-    })
     }
 
     function handleUpdatePrice(id) {
@@ -63,9 +115,12 @@ function DisplayStocks() {
               setPriceChange({style: "priceDecreased", id: id})
             } 
             stock.price = r['updated price']
+            stock.market_cap = r['updated market cap']
+            return stock
           }
           return stock
         })
+        console.log(updatedStocks)
         context.setStocks(updatedStocks)
         setTimeout(() => {
           setPriceChange({
@@ -92,7 +147,7 @@ function DisplayStocks() {
       return <h2>loading...</h2>
     }
 
-    let SearchedStocks = context.stocks.filter((stock) => stock.name.toLowerCase().includes(search.toLowerCase()))
+    let SearchedStocks = context.stocks.filter((stock) => stock.ticker.toLowerCase().includes(search.toLowerCase()))
 
     return <>
             <Search handleSearch={handleSearch} search={search} handleClearBtnClick={handleClearBtnClick} />
@@ -103,7 +158,7 @@ function DisplayStocks() {
                         {buyShares !== stock.id && context.user && <button  onMouseLeave={() => setBuyShares(null)} onMouseEnter={() => handleMouseEnter(stock.id)} style={buyBtn}>Buy</button>}
                         {buyShares === stock.id && context.user && <div style={divForShares} onMouseEnter={() => handleMouseEnter(stock.id)} onMouseLeave={() => setBuyShares(null)}>
                         <input style={inputForShares} onChange={handleSharesChange} value={shares} placeholder="Shares" name="sellSharesInput"autoComplete="off"/>
-                        <button style={buttonForShares} onClick={() => handleBuy(stock.id)}>Buy</button></div>
+                        <button style={buttonForShares} onClick={() => handleBuy(stock.id, stock.price)}>Buy</button></div>
                         }
                 </div>
                 <div style={!context.user ? tickerStyle : loggedInTickerStyle}>
@@ -113,13 +168,13 @@ function DisplayStocks() {
                   <p>{stock.name}</p>
                 </div>
                 <div style={priceStyle}>
-                    <h4 className={priceChange.id === stock.id ? priceChange.style : ''}>{stock.price}</h4>
+                    <h4 className={priceChange.id === stock.id ? priceChange.style : ''}>{(stock.price).toLocaleString(undefined, {minimumFractionDigits: '2', maximumFractionDigits: '2'})}</h4>
                 </div>
                 <div style={industryStyle}>
                     <h4>{stock.industry}</h4>
                 </div>
                 <div style={marketCapStyle}>
-                    <h4>Market cap: {stock.market_cap}</h4>
+                    <h4 className={priceChange.id === stock.id ? priceChange.style : ''}>Market cap: {stock.market_cap}</h4>
                 </div>
                 <div style={chartAndRefreshDiv}>
                     <Link to={`/stock/${stock.id}`}><button className="infoBtn">Stock chart</button></Link>
@@ -139,9 +194,9 @@ const buyBtn = {
     cursor: 'pointer',
     padding: '12px 20px',
     fontSize: 'large',
-    color: 'blue',
+    color: '#6495ED',
     borderRadius: '10px',
-    border: ' 2px solid blue'
+    border: ' 2px solid #6495ED'
   };
 
 const divForShares = {
@@ -160,7 +215,7 @@ const buttonForShares = {
   padding: "6px 10px",
   border: "none",
   borderRadius: "4px",
-  backgroundColor: "blue",
+  backgroundColor: "#6495ED",
   color: "#fff",
   cursor: "pointer",
   };
@@ -192,7 +247,8 @@ const nameStyle = {
 const priceStyle = {
     padding: '1.5% 10px',
     position: 'absolute',
-    left: '45%'
+    left: '45%',
+    color: 'orange'
   };
   
 const industryStyle = {

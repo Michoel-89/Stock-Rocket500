@@ -4,34 +4,36 @@ body {
 
 .refreshBtn {
     border-radius: 10px;
-    border: 1.5px solid blue;
+    border: 1.5px solid burlywood;
     padding: 1%;
     margin: 3px;
+    color: #6495ED;
   }
   
 .refreshBtn:hover {
     cursor: pointer;
-    color: rgb(0, 220, 255);
+    color: burlywood;
     border-radius: 10px;
-    border: 1.5px solid blue;
+    border: 1.5px solid burlywood;
   }
   
 .infoBtn:hover {
     cursor: pointer;
-    color: rgb(0, 220, 255);
+    color: burlywood;
     border-radius: 10px;
-    border: 1.5px solid blue;
+    border: 1.5px solid burlywood;
   }
   
 .infoBtn {
     border-radius: 10px;
-    border: 1.5px solid blue;
+    border: 1.5px solid burlywood;
     margin: 3px;
+    color: #6495ED;
 
   }
 
   .priceIncreased {
-    color: greenyellow;
+    color: green;
   }
   
   .priceDecreased {

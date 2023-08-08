@@ -8,7 +8,7 @@ class User(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False, unique=True)
     _password_hash = db.Column(db.String(50), nullable=False)
-    # account_balance = db.Column(db.Integer, default=1000)
+    account_balance = db.Column(db.Integer, default=1000)
 
     my_stocks = db.relationship('UserStock', backref='user', cascade='all' )
 

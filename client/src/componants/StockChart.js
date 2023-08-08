@@ -143,7 +143,7 @@ function StockChart() {
   }
 
   return (
-    <>
+    <div className="chart">
       {chartData.map((d, index) => {
           const todaysDate = chartData[0]['Open'][chartData[0]['Open'].length -1]['date']
           const oneYearOldDate = chartData[0]['Open'][0]['date']
@@ -151,21 +151,21 @@ function StockChart() {
           const oneYearOldPrice = chartData[0]['Open'][0]['price']
           const shortenedPrice = Number(livePrice).toFixed(2)
           return <div key={index} >
-            <h2 style={{marginLeft: '4%'}}>{`Ticker: ${stockData.ticker}`}</h2>
-            <h2 style={{marginBottom: '0', marginLeft: '4%'}}>{`Live price: ${shortenedPrice}`}</h2>
-            <h2 style={livePrice > oneYearOldPrice ? {color: '#90EE90', marginLeft: '4%'} : {color: 'red', marginLeft: '4%'}}>{`${livePrice > oneYearOldPrice ? '+' : ''}${Number(livePrice - oneYearOldPrice).toFixed(2)} (${livePrice > oneYearOldPrice ? '+' : ''}${Number(((livePrice - oneYearOldPrice) / oneYearOldPrice) *100).toFixed(2)}%)`}</h2>
-            <div style={{margin: '0 25.3% 0 30%', border: '1px solid black', borderBottom: 'none', paddingBottom: '.5%' }}>
+            <h2 style={{marginTop: '0', paddingTop: '2%', marginLeft: '5%'}}>{`Ticker: ${stockData.ticker}`}</h2>
+            <h2 style={{marginBottom: '0', marginLeft: '5%'}}>{`Live price: ${shortenedPrice}`}</h2>
+            <h2 style={livePrice > oneYearOldPrice ? {color: '#90EE90', marginLeft: '5%'} : {color: 'red', marginLeft: '4%'}}>{`${livePrice > oneYearOldPrice ? '+' : ''}${Number(livePrice - oneYearOldPrice).toFixed(2)} (${livePrice > oneYearOldPrice ? '+' : ''}${Number(((livePrice - oneYearOldPrice) / oneYearOldPrice) *100).toFixed(2)}%)`}</h2>
+            <div style={{backgroundColor: 'rgb(26, 17, 16)', color: 'white', margin: '0 25.3% 0 30%', borderBottom: 'none', paddingBottom: '.5%' }}>
               <button onClick={() => handleDaysClick()} className="btn1">5 days</button>
               <button onClick={() => handle3MoClick()} className="btn2" >3 months</button>
               <button onClick={() => handle6MoClick()} className="btn3" >6 months</button>
               <button onClick={() => handleYearClick()} className="btn4" >1 year</button>
             </div>
-            <div style={{margin: '0 25.3% 0 30%', border: '1px solid black'}} >
+            <div style={{backgroundColor: 'rgb(26, 17, 16)', color: 'white', margin: '0 25.3% 0 30%',}} >
             <p style={{display: 'inline', paddingRight: '35%'}}>Start date: {oneYearOldDate}</p>
             <p style={{display: 'inline'}}>End date: {todaysDate}</p>
             </div>
             <div className="chartStyle">
-              <ResponsiveContainer width={'50%'} height={300} >
+              <ResponsiveContainer width={'44.5%'} height={300} >
                 <LineChart width={300} height={200} data={d[Object.keys(d)[0]]}>
                   <CartesianGrid/>
                   <XAxis hide dataKey="date" />
@@ -175,11 +175,11 @@ function StockChart() {
                 </LineChart>
               </ResponsiveContainer>
             </div>
-            <div style={{margin: '0 25.3% 2% 30%', border: '1px solid black', backgroundColor: 'black', padding: '1% 0'}} >
+            <div style={{margin: '0 25.3% 2% 30%', backgroundColor: 'rgb(26, 17, 16)', padding: '1% 0'}} >
             </div>
           </div>
         })}
-    </>
+    </div>
   );
 }
 

@@ -5,8 +5,9 @@ from faker import Faker
 from random import randint
 fake = Faker()
 import yfinance as yf
-# def format_market_cap(market_cap):
 # 1e2 e means exponant
+
+# def format_market_cap(market_cap):
 #             if market_cap >= 1e12:
 #                 return f"{market_cap / 1e12:.2f} Trillion"
 #             elif market_cap >= 1e9:

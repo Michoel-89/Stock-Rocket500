@@ -1,8 +1,12 @@
-
 .chartStyle {
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
+}
+
+.recharts-surface {
+  background-color: white;
+  margin-left: 5.4%;
 }
 
 .btn1 {
@@ -38,21 +42,21 @@
 }
 
 .btn1:hover {
-    background-color: #42a5f5;
+    background-color: peru;
     color: #ffffff; 
   }
   
   .btn2:hover {
-    background-color: #42a5f5;
+    background-color: peru;
     color: #ffffff;
   }
   
   .btn3:hover {
-    background-color: #42a5f5;
+    background-color: peru;
     color: #ffffff; 
   }
   
   .btn4:hover {
-    background-color: #42a5f5;
+    background-color: peru;
     color: #ffffff; 
   }

@@ -3,7 +3,17 @@ from flask import request, session, jsonify
 from models import db, User, UserStock, Stock
 from flask_migrate import Migrate
 import yfinance as yf
+def format_market_cap(market_cap):
+            if market_cap >= 1e12:
+                return f"{market_cap / 1e12:.2f} Trillion"
+            elif market_cap >= 1e9:
+                return f"{market_cap / 1e9:.2f} Billion"
+            elif market_cap >= 1e6:
+                return f"{market_cap / 1e6:.2f} Million"
+            else:
+                return f"{market_cap:.2f}"
 
+            
 @app.get('/stocks')
 def get_all_stocks():
     stocks = [s.to_dict() for s in Stock.query.all()]
@@ -51,10 +61,13 @@ def update_stock_price(id):
         stock = Stock.query.filter_by(id=id).first()
         stock_ticker = yf.Ticker(stock.ticker)
         hist = stock_ticker.history(period='1m')['Close'][0]
+        market_cap = stock_ticker.info['marketCap']
+        formatted_market_cap = format_market_cap(market_cap)
         stock.price = round(hist, 2)
+        stock.market_cap = formatted_market_cap
         db.session.add(stock)
         db.session.commit()
-        return {'updated price': stock.price}, 200
+        return {'updated price': stock.price, 'updated market cap': stock.market_cap}, 200
     except ValueError:
         return {'error': f'Sorry unable to find {stock_ticker}'}, 404
 

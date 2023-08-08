@@ -28,7 +28,7 @@ function LoggedInNavbar() {
             </Link>
           </div>
           <div>
-              <Link style={{ textDecoration: 'none', color: 'black', fontSize: '1.2rem',  }} to={'/profile'} >Profile
+              <Link style={{ textDecoration: 'none', color: 'black', fontSize: '1.2rem',  }} to={'/profile'} >Account
               </Link>
           </div>
           {hover && (<div onMouseLeave={() => setHover(false)} >
