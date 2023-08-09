@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import { Context } from "../App"
 import { Link } from "react-router-dom"
 import Search from "./Search"
-import Dropdown from "./Dropdown"
+import Dropdowns from "./Dropdowns"
 import './DisplayStocks.css'
 function DisplayStocks() {
     const context = useContext(Context)
@@ -10,6 +10,7 @@ function DisplayStocks() {
     const [shares, setShares] = useState('')
     const [search, setSearch] = useState('')
     const [industry, setIndustry] = useState('All')
+    const [sort, setSort] = useState(null)
     const [priceChange, setPriceChange] = useState({
       price: '',
       id: ''
@@ -145,21 +146,46 @@ function DisplayStocks() {
       setSearch('')
     }
 
-    function handleDropdownChange(e) {
+    function handleIndustryChange(e) {
       setIndustry(e.target.value)
+    }
+    function handleSortChange(e) {
+      sortStocks(e.target.value)
+      setSort(e.target.value)
     }
 
     if (!context.stocks) {
       return <h2>loading...</h2>
     }
+    function sortStocks(order) {
+        if (order === null) {
+          return
+        }
+        let sorted = context.stocks.sort((a, b) => {
+          let num1 = 0, num2 = 0
+          let multipliers = {
+            'Trillion': 1e12,
+            'Billion': 1e9,
+            'Million': 1e6
+          }
+          num1 = parseFloat(a.market_cap) * multipliers[a.market_cap.split(' ')[1]]
+          num2 = parseFloat(b.market_cap) * multipliers[b.market_cap.split(' ')[1]]
+          if (order === 'Highest market cap') {
+            return num2 - num1
+          } 
+          return num1 - num2
+        })
+        return sorted
+    }
 
+    
     let filterByIndustryAndSearch = context.stocks.filter((stock) => {
       return (industry === 'All' || stock.industry.toLowerCase().includes(industry.toLowerCase())) && (search === '' || stock.ticker.toLowerCase().includes(search.toLowerCase()))
     })
 
     return <>
         <Search handleSearch={handleSearch} search={search} handleClearBtnClick={handleClearBtnClick} />
-        <Dropdown handleDropdownChange={handleDropdownChange} />
+        <Dropdowns handleSortChange={handleSortChange} handleIndustryChange={handleIndustryChange} />
         {filterByIndustryAndSearch.map((stock) => {
             return <div key={stock.id} style={containerStyle}>
                 <div >
@@ -233,6 +259,7 @@ const containerStyle = {
     alignItems: "center",
     justifyContent: "space-between",
     border: "1px solid #ccc",
+    flexWrap: 'wrap'
   };
 
 const tickerStyle = {
