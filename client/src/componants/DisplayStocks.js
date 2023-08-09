@@ -2,12 +2,14 @@ import { useContext, useState } from "react"
 import { Context } from "../App"
 import { Link } from "react-router-dom"
 import Search from "./Search"
+import Dropdown from "./Dropdown"
 import './DisplayStocks.css'
 function DisplayStocks() {
     const context = useContext(Context)
     const [buyShares, setBuyShares] = useState(null)
     const [shares, setShares] = useState('')
     const [search, setSearch] = useState('')
+    const [industry, setIndustry] = useState('All')
     const [priceChange, setPriceChange] = useState({
       price: '',
       id: ''
@@ -143,16 +145,22 @@ function DisplayStocks() {
       setSearch('')
     }
 
+    function handleDropdownChange(e) {
+      setIndustry(e.target.value)
+    }
+
     if (!context.stocks) {
       return <h2>loading...</h2>
     }
 
-    let SearchedStocks = context.stocks.filter((stock) => stock.ticker.toLowerCase().includes(search.toLowerCase()))
+    let filterByIndustryAndSearch = context.stocks.filter((stock) => {
+      return (industry === 'All' || stock.industry.toLowerCase().includes(industry.toLowerCase())) && (search === '' || stock.ticker.toLowerCase().includes(search.toLowerCase()))
+    })
 
     return <>
-            <Search handleSearch={handleSearch} search={search} handleClearBtnClick={handleClearBtnClick} />
-
-        {SearchedStocks.map((stock) => {
+        <Search handleSearch={handleSearch} search={search} handleClearBtnClick={handleClearBtnClick} />
+        <Dropdown handleDropdownChange={handleDropdownChange} />
+        {filterByIndustryAndSearch.map((stock) => {
             return <div key={stock.id} style={containerStyle}>
                 <div >
                         {buyShares !== stock.id && context.user && <button  onMouseLeave={() => setBuyShares(null)} onMouseEnter={() => handleMouseEnter(stock.id)} style={buyBtn}>Buy</button>}
@@ -161,7 +169,7 @@ function DisplayStocks() {
                         <button style={buttonForShares} onClick={() => handleBuy(stock.id, stock.price)}>Buy</button></div>
                         }
                 </div>
-                <div style={!context.user ? tickerStyle : loggedInTickerStyle}>
+                <div style={tickerStyle}>
                     <h4>{stock.ticker}</h4>
                 </div>
                 <div style={nameStyle}>
@@ -227,21 +235,15 @@ const containerStyle = {
     border: "1px solid #ccc",
   };
 
-const loggedInTickerStyle = {
-  padding: "0 10px",
-  position: 'absolute',
-  left: '10%'
-  };
-
 const tickerStyle = {
     padding: "0 10px",
     position: 'absolute',
-    left: '10%'
+    left: '8%'
   };
   
 const nameStyle = {
   position: 'absolute',
-  left: '20%'
+  left: '14%'
 }
 
 const priceStyle = {

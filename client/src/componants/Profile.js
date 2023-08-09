@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { Context } from "../App";
 import "./DisplayStocks.css";
+import downArrow from '/home/michoel/final-project/client/src/componants/downArrow.jpg'
 
 function Profile() {
   const context = useContext(Context);
@@ -8,6 +9,7 @@ function Profile() {
   const [editMode, setEditMode] = useState(false);
   const [sellShares, setSellShares] = useState(null)
   const [shares, setShares] = useState('')
+  const [revealBalance, setRevealBalance] = useState(false)
 
   function handleMouseEnter(id) {
     setSellShares(id)
@@ -151,10 +153,16 @@ function Profile() {
           </>
         )}
       </div>
+      <div style={dashboardDiv}>
       <h2>Hello {username}.</h2>
-      <h4>Net balance: ${(Number(context.user.account_balance) + Number(stocksBalance)).toLocaleString(undefined, {minimumFractionDigits: '2', maximumFractionDigits: '2'})}</h4>
+      {!revealBalance && <><p>{context.user.my_stocks.length > 0 ? 'You own shares in these companies.' : null}</p>
+      <button style={downBtn}>Account balance <img style={btnImg} onClick={() => setRevealBalance(prev => !prev)} alt="down arrow" src={downArrow} width={10} height={10}/></button>
+      </>}
+      {revealBalance && <><h4>Net balance: ${(Number(context.user.account_balance) + Number(stocksBalance)).toLocaleString(undefined, {minimumFractionDigits: '2', maximumFractionDigits: '2'})}</h4>
       <h4>Cash balance: {context.user.account_balance.toLocaleString(undefined, {minimumFractionDigits: '2', maximumFractionDigits: '2'})}</h4>
-      <p>{context.user.my_stocks.length > 0 ? 'You own shares in these companies.' : null}</p>
+      <button style={downBtn}>Close <img style={openBtnImg} onClick={() => setRevealBalance(prev => !prev)} alt="down arrow" src={downArrow} width={10} height={10}/></button>
+      </>}
+      </div>
             {context.user.my_stocks.map((stock) => {
               return  <div key={stock.id} style={containerStyle}>
                     <div style={sellBtns}>
@@ -183,9 +191,9 @@ function Profile() {
                     <div style={industryStyle}>
                         <h4>{stock.stock.industry}</h4>
                     </div>
-                    <div style={marketCapStyle}>
+                    {/* <div style={marketCapStyle}>
                         <h4>Market cap: {stock.stock.market_cap}</h4>
-                    </div>
+                    </div> */}
                 </div>
             })}
     </>
@@ -281,42 +289,64 @@ const sellAllBtn = {
 const sharesStyle = {
   padding: "0 10px",
   position: 'absolute',
-  left: '14%'
+  left: '15%'
 }
 
 const tickerStyle = {
   padding: "0 10px",
   position: 'absolute',
-  left: '21%'
+  left: '25%'
 };
 
 const nameStyle = {
 position: 'absolute',
-left: '26%'
+left: '30%'
 }
 
 const PPS = {
   position: 'absolute',
-  left: '52%'
+  left: '60%'
 }
 
-const priceStyle = {
-  padding: '1.5% 10px',
-  position: 'absolute',
-  left: '57%'
-};
-
 const industryStyle = {
-  padding: '1.5% 10px', 
   position: 'absolute',
-  left: '68%'
+  left: '70%',
 };
 
-const marketCapStyle = {
+// const marketCapStyle = {
+//   position: 'absolute',
+//   left: '74%'
+// };
+
+const priceStyle = {
+  padding: '1px',
   position: 'absolute',
-  left: '84%'
+  left: '87%'
 };
-  
+
+const dashboardDiv = {
+  margin: 'auto',
+  backgroundColor: "rgb(0, 220, 255)",
+  width: '30%',
+  borderRadius: '10px',
+  padding: '5px 0',
+  marginBottom: '20px'
+}
+
+const downBtn = {
+  border: 'none',
+  backgroundColor: "rgb(0, 220, 255)",
+}
+
+const openBtnImg = {
+  cursor: 'pointer',
+  transform: 'rotate(180deg)'
+}
+
+const btnImg = {
+  cursor: 'pointer',
+}
+
 
 
 export default Profile;

@@ -9,11 +9,12 @@ function Search({ handleSearch, search, handleClearBtnClick}) {
         style={clearBtn}
         >Clear</button> 
         <input 
+            autoFocus
             name="search" 
             onChange={(e) => handleSearch(e.target.value)} 
             value={search}
             style={inputStyle}
-            placeholder="Search by company name"
+            placeholder="Search by ticker"
             autoComplete="off"
         /></>}
         {!revealSearch ? <button 
@@ -51,7 +52,8 @@ const inputStyle = {
     width: '15.5%',
     border: 'none',
     outline: 'none',
-    fontSize: 'medium'
+    fontSize: 'medium',
+    backgroundColor: 'rgb(240, 240, 240)',
 }
 
 const searchDiv = {
