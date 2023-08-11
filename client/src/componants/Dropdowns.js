@@ -1,5 +1,5 @@
 function Dropdowns({handleIndustryChange, handleSortChange}) {
-    const industries = ['Electronic Technology', 'Technology Services', 'Retail Trade', 'Energy Minerals', 'Health Services', 'Commercial Services', 'Health Technology', 'Finance', 'Consumer Durables', 'Consumer Non-Durables', 'Consumer Services', 'Communications', 'Utilities', 'Process Industries', 'Transportation', 'Producer Manufacturing', 'Industrial Services', 'Distribution Services', 'Non-Energy Minerals']
+    const industries = ['Electronic Technology', 'Technology Services', 'Retail Trade', 'Energy Minerals', 'Health Services', 'Commercial Services', 'Health Technology', 'Finance', 'Consumer Durables', 'Consumer Non-Durables', 'Consumer Services', 'Communications', 'Utilities', 'Process Industries', 'Transportation', 'Producer Manufacturing', 'Industrial Services', 'Distribution Services', 'Non-Energy Minerals', 'Security and Aerospace']
     return <>
         <div style={dropdownDiv}>
             <select onChange={(e) => handleIndustryChange(e)} style={dropdown}>

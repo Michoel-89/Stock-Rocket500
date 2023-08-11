@@ -113,8 +113,9 @@ function Profile() {
             if(r.ok) {
                   const updatedStocks = context.user.my_stocks.filter((stock) => stock.id !== id)
                   context.setUser({...context.user, my_stocks: updatedStocks, account_balance: updatedBalance})
+                  alert('All shares sold')
                 }
-            else{
+            else {
                 return console.error("stock doesn't exist");
             }
         })

@@ -72,6 +72,7 @@ function DisplayStocks() {
             context.setUser({
               ...context.user, my_stocks: updatedStocks, account_balance: updatedBalance
             })
+            alert(`${shares} shares bought`)
             setShares('');
           });
         } else {
@@ -100,6 +101,7 @@ function DisplayStocks() {
             context.setUser({
               ...context.user, account_balance: updatedBalance
             })
+            alert(`${shares} shares bought`)
             setShares('');
           });
         }
@@ -149,35 +151,36 @@ function DisplayStocks() {
     function handleIndustryChange(e) {
       setIndustry(e.target.value)
     }
+    
     function handleSortChange(e) {
       sortStocks(e.target.value)
       setSort(e.target.value)
     }
 
+    function sortStocks(order) {
+      if (order === null) {
+        return
+      }
+      let sorted = context.stocks.sort((a, b) => {
+        let num1 = 0, num2 = 0
+        let multipliers = {
+          'Trillion': 1e12,
+          'Billion': 1e9,
+          'Million': 1e6
+        }
+        num1 = parseFloat(a.market_cap) * multipliers[a.market_cap.split(' ')[1]]
+        num2 = parseFloat(b.market_cap) * multipliers[b.market_cap.split(' ')[1]]
+        if (order === 'Highest market cap') {
+          return num2 - num1
+        } 
+        return num1 - num2
+      })
+      return sorted
+    }
+
     if (!context.stocks) {
       return <h2>loading...</h2>
     }
-    function sortStocks(order) {
-        if (order === null) {
-          return
-        }
-        let sorted = context.stocks.sort((a, b) => {
-          let num1 = 0, num2 = 0
-          let multipliers = {
-            'Trillion': 1e12,
-            'Billion': 1e9,
-            'Million': 1e6
-          }
-          num1 = parseFloat(a.market_cap) * multipliers[a.market_cap.split(' ')[1]]
-          num2 = parseFloat(b.market_cap) * multipliers[b.market_cap.split(' ')[1]]
-          if (order === 'Highest market cap') {
-            return num2 - num1
-          } 
-          return num1 - num2
-        })
-        return sorted
-    }
-
     
     let filterByIndustryAndSearch = context.stocks.filter((stock) => {
       return (industry === 'All' || stock.industry.toLowerCase().includes(industry.toLowerCase())) && (search === '' || stock.ticker.toLowerCase().includes(search.toLowerCase()))
