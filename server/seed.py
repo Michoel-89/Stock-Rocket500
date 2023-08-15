@@ -1,5 +1,5 @@
 from app import app
-from models import db, User, UserStock, Stock
+from server.models import db, User, UserStock, Stock
 from S_and_P_500 import stock_data
 from faker import Faker
 from random import randint

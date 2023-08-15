@@ -1,8 +1,9 @@
-from config import app, db
+from server.config import app, db
 from flask import request, session, jsonify
-from models import db, User, UserStock, Stock
+from server.models import db, User, UserStock, Stock
 from flask_migrate import Migrate
 import yfinance as yf
+import os
 def format_market_cap(market_cap):
             if market_cap >= 1e12:
                 return f"{market_cap / 1e12:.2f} Trillion"
@@ -12,7 +13,9 @@ def format_market_cap(market_cap):
                 return f"{market_cap / 1e6:.2f} Million"
             else:
                 return f"{market_cap:.2f}"
-
+@app.route('/')
+def home():
+    return '<h2>home</h2>'
             
 @app.get('/stocks')
 def get_all_stocks():

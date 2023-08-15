@@ -1,5 +1,5 @@
 from sqlalchemy_serializer import SerializerMixin
-from config import db, bcrypt
+from server.config import db, bcrypt
 from sqlalchemy.ext.hybrid import hybrid_property
 
 class User(db.Model, SerializerMixin):
