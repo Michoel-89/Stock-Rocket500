@@ -12,7 +12,7 @@ app = Flask(__name__, static_url_path='', static_folder='../client/build', templ
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////opt/render/project/src/server/instance/app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
-app.secret_key = os.environ.get('SECRET_KEY')
+app.secret_key = os.getenv()('SECRET_KEY')
 
 # Define metadata, instantiate db
 metadata = MetaData(naming_convention={

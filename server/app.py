@@ -1,5 +1,5 @@
 from server.config import app, db
-from flask import request, session, jsonify
+from flask import request, session, jsonify, render_template
 from server.models import db, User, UserStock, Stock
 from flask_migrate import Migrate
 import yfinance as yf
@@ -14,8 +14,9 @@ def format_market_cap(market_cap):
             else:
                 return f"{market_cap:.2f}"
 @app.route('/')
-def home():
-    return '<h2>home</h2>'
+@app.route('/<int:id>')
+def index(id=0):
+    return render_template("index.html")
             
 @app.get('/stocks')
 def get_all_stocks():
@@ -183,4 +184,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(port=5555, debug=True)
+    app.run()
