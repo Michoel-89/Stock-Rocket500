@@ -6,11 +6,13 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 from flask_bcrypt import Bcrypt
 import os
+print("Current Directory:", os.getcwd())
+
 # Local imports
 
 # Instantiate app, set attributes
 app = Flask(__name__, static_url_path='', static_folder='../client/build', template_folder='../client/build')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/michoel/final-project/server/instance/app.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///server/instance/app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
 app.secret_key = os.environ.get('SECRET_KEY')
