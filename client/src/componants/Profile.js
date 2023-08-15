@@ -296,7 +296,7 @@ const sharesStyle = {
 const tickerStyle = {
   padding: "0 10px",
   position: 'absolute',
-  left: '25%'
+  left: '24%'
 };
 
 const nameStyle = {
