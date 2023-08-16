@@ -6,6 +6,9 @@ Welcome to Stock-Rocket500, this web application was designed for effortless nav
 - Create an account to simulate trading with virtual currency. 
 - Each stock also offers a refresh option for real-time pricing, alongside stock charts. 
 
+## Live version
+[Stock-Rocket500](https://stock-rocket500.onrender.com/)
+
 ## Technologies used
 Javascript, React, Python, Flask, Recharts, Yfinance library, SQLite
 
