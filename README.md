@@ -8,3 +8,8 @@ Welcome to Stock-Rocket500, this web application was designed for effortless nav
 
 ## Technologies used
 Javascript, React, Python, Flask, Recharts, Yfinance library, SQLite
+
+## Getting started
+1. Clone this repository: git@github.com:Michoel-89/Stock-Rocket500.git
+2. Install dependencies: npm install
+3. Start the application: npm start
