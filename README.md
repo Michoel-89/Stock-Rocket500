@@ -1,3 +1,5 @@
+# Stock-Rocket500
+
 Welcome to Stock-Rocket500, this web application was designed for effortless navigation through the S&P 500 stock list.
 
 - Easily apply filters, sorting options, and search to find specific stocks. 
