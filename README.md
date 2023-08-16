@@ -7,4 +7,4 @@ Welcome to Stock-Rocket500, this web application was designed for effortless nav
 - Each stock also offers a refresh option for real-time pricing, alongside stock charts. 
 
 ## Technologies used
-JSX, CSS, Javascript, React, Python, Flask, Recharts, Yfinance library, SQLite
+Javascript, React, Python, Flask, Recharts, Yfinance library, SQLite
