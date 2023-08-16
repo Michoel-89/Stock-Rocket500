@@ -9,7 +9,7 @@ import Profile from './componants/Profile';
 import { useState, useEffect } from 'react';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom'
-import stockImg from '/home/michoel/final-project/client/src/componants/stock-market-graph-trading-chart-for-business-and-finance-free-vector.jpg'
+import stockImg from '/home/michoel/final-project/client/src/photos/stock-market-graph-trading-chart-for-business-and-finance-free-vector.jpg'
 
 export const Context = React.createContext()
 

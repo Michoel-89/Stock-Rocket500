@@ -1,0 +1,22 @@
+.navbarStyle {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgb(0, 220, 255);
+    padding: 0;
+}
+
+.logoutTextStyle {
+    font-size: 1.2rem;
+    color: black;
+    font-weight: normal;
+    background-color: rgb(0, 220, 255);
+    border: none;
+    cursor: pointer;
+}
+
+.logoutImageStyle {
+    width: 30px;
+    height: 30px;
+    border-radius: 60%;
+}

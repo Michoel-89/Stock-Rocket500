@@ -3,7 +3,7 @@ import { Context } from "../App"
 import { Link } from "react-router-dom"
 import Search from "./Search"
 import Dropdowns from "./Dropdowns"
-import './DisplayStocks.css'
+import './styling/DisplayStocks.css'
 function DisplayStocks() {
     const context = useContext(Context)
     const [buyShares, setBuyShares] = useState(null)

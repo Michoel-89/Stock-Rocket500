@@ -1,0 +1,14 @@
+.dropdownDiv {
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: rgb(240, 240, 240);
+    padding: 7px;
+}
+
+.dropdown {
+    background-color: rgb(240, 240, 240);
+    border-radius: 50px;
+    border: 1px solid black;
+    outline: none;
+    margin-left: 1%;
+}

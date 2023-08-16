@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { Context } from "../App";
-import "./DisplayStocks.css";
-import downArrow from '/home/michoel/final-project/client/src/componants/downArrow.jpg'
+import downArrow from '/home/michoel/final-project/client/src/photos/downArrow.jpg'
 
 function Profile() {
   const context = useContext(Context);
@@ -192,9 +191,6 @@ function Profile() {
                     <div style={industryStyle}>
                         <h4>{stock.stock.industry}</h4>
                     </div>
-                    {/* <div style={marketCapStyle}>
-                        <h4>Market cap: {stock.stock.market_cap}</h4>
-                    </div> */}
                 </div>
             })}
     </>
@@ -313,11 +309,6 @@ const industryStyle = {
   position: 'absolute',
   left: '70%',
 };
-
-// const marketCapStyle = {
-//   position: 'absolute',
-//   left: '74%'
-// };
 
 const priceStyle = {
   padding: '1px',

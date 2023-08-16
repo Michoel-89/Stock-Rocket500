@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
-import './StockChart.css'
+import './styling/StockChart.css'
 function StockChart() {
   const [chartData, setChartData] = useState(null);
   const [stockData, setStockData] = useState(null);

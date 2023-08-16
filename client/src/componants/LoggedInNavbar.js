@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useContext } from "react"
 import { Context } from "../App"
+import './styling/LoggedInNavbar.css'
 function LoggedInNavbar() {
     const [hover, setHover] = useState(false)
     const context = useContext(Context)
