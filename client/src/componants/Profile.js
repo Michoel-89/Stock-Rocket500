@@ -297,7 +297,7 @@ const tickerStyle = {
 
 const nameStyle = {
 position: 'absolute',
-left: '30%'
+left: '31%'
 }
 
 const PPS = {
