@@ -11,7 +11,7 @@ Watch the demo video [here.](https://www.loom.com/share/9d9e3873cb3b4e4d93b22d12
 ## Try it out
 [Stock-Rocket500](https://stock-rocket500.onrender.com/)
 
-## Stack
+## Tech stack
 Javascript, React, Python, Flask, Recharts, Yfinance library, SQLite
 
 ## Getting started
