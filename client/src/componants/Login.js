@@ -35,17 +35,17 @@ function Login() {
         } else {
           throw new Error('Login request failed');
         }
-      })
+    })
       .then((r) => {
         setUsername('');
         setPassword('');
         user.setUser(r);
         navigate(`/profile`);
-      })
+    })
       .catch((error) => {
         console.error('Error occurred during login:', error);
         alert('Invalid input');
-      });
+    });
   }
 
   function handleSignupClick() {
@@ -84,13 +84,13 @@ function Login() {
             Login
           </button>
         </div>
+        <div className='signUpDiv'>
+          <span style={{ marginRight: '5px' }}>Don't have an account?</span>
+          <button onClick={handleSignupClick} className='signUpButtonStyle'>
+                Sign up
+          </button>
+        </div>
       </form>
-      <div className='signUpDiv'>
-      <span style={{ marginRight: '5px' }}>Don't have an account?</span>
-      <button onClick={handleSignupClick} className='signUpButtonStyle'>
-            Sign up
-      </button>
-      </div>
     </div>
   );
 }

@@ -84,7 +84,7 @@ const containerStyle = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  height: '78vh',
+  minHeight: '100vh', // Use minHeight to ensure the container takes the full viewport height
 };
 
 const formStyle = {
@@ -96,8 +96,8 @@ const formStyle = {
   border: '1px solid #ccc',
   borderRadius: '20px',
   backgroundColor: 'rgb(0, 220, 255)',
-  paddingBottom: '.6%',
-  marginLeft: '5%'
+  width: '80%', // Adjust the width to make it responsive
+  maxWidth: '400px', // Set a maximum width for larger screens
 };
 
 const labelStyle = {
@@ -105,7 +105,7 @@ const labelStyle = {
 };
 
 const inputStyle = {
-  width: '250px',
+  width: '100%', // Make the input width 100% to adapt to the container width
   padding: '0.5rem',
   border: '1px solid #ccc',
   borderRadius: '3px',
@@ -120,4 +120,10 @@ const submitButtonStyle = {
   backgroundColor: 'rgb(204, 204, 204)',
   color: 'white',
 };
+
+// Media query for smaller screens (adjust the values as needed)
+if (window.matchMedia('(max-width: 600px)').matches) {
+  formStyle.width = '90%';
+}
+
 export default Signup

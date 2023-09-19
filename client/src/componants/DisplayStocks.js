@@ -222,78 +222,143 @@ function DisplayStocks() {
     </>
 }
 
-const chartAndRefreshDiv = {
+let chartAndRefreshDiv = {
   display: 'flex',
   flexDirection: 'column',
-}
+};
 
-const buyBtn = {
-    cursor: 'pointer',
-    padding: '12px 20px',
-    fontSize: 'large',
-    color: '#6495ED',
-    borderRadius: '10px',
-    border: ' 2px solid #6495ED'
-  };
+let buyBtn = {
+  cursor: 'pointer',
+  padding: '12px 20px',
+  fontSize: 'large',
+  color: '#6495ED',
+  borderRadius: '10px',
+  border: ' 2px solid #6495ED',
+};
 
-const divForShares = {
-      display: 'flex',
-      flexDirection: 'row'
-  };
+let divForShares = {
+  display: 'flex',
+  flexDirection: 'row',
+};
 
-const inputForShares = {
+let inputForShares = {
   padding: '6px 2px',
   border: "1px solid #ccc",
   borderRadius: "4px",
   width: '25%',
-  };
+};
 
-const buttonForShares = {
+let buttonForShares = {
   padding: "6px 10px",
   border: "none",
   borderRadius: "4px",
   backgroundColor: "#6495ED",
   color: "#fff",
   cursor: "pointer",
-  };
-  
-const containerStyle = {
-    display: 'flex', // default display is row
-    alignItems: "center",
-    justifyContent: "space-between",
-    border: "1px solid #ccc",
-    flexWrap: 'wrap'
-  };
+};
 
-const tickerStyle = {
-    padding: "0 10px",
-    position: 'absolute',
-    left: '8%'
-  };
-  
-const nameStyle = {
+let containerStyle = {
+  display: 'flex', // default display is row
+  alignItems: "center",
+  justifyContent: "space-between",
+  border: "1px solid #ccc",
+  flexWrap: 'wrap',
+};
+
+let tickerStyle = {
+  padding: "0 10px",
   position: 'absolute',
-  left: '14%'
-}
+  left: '8%',
+};
 
-const priceStyle = {
-    padding: '1.5% 10px',
-    position: 'absolute',
-    left: '45%',
-    color: 'orange'
+let nameStyle = {
+  position: 'absolute',
+  left: '14%',
+};
+
+let priceStyle = {
+  padding: '1.5% 10px',
+  position: 'absolute',
+  left: '45%',
+  color: 'orange',
+};
+
+let industryStyle = {
+  padding: '1.5% 10px',
+  position: 'absolute',
+  left: '55%',
+};
+
+let marketCapStyle = {
+  padding: "0 10px", // Add padding to the left and right of the market cap
+  position: 'absolute',
+  left: '75%',
+};
+
+if (window.innerWidth <= 1080) {
+  containerStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '20px',
   };
   
-const industryStyle = {
-    padding: '1.5% 10px', 
-    position: 'absolute',
-    left: '55%'
+  buyBtn = {
+    cursor: 'pointer',
+    padding: '12px 20px',
+    fontSize: 'large',
+    color: '#6495ED',
+    borderRadius: '10px',
+    border: ' 2px solid #6495ED',
+    marginBottom: '20px',
   };
   
-const marketCapStyle = {
-    padding: "0 10px", // Add padding to the left and right of the market cap
-    position: 'absolute',
-    left: '75%'
+  divForShares = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   };
+  
+  inputForShares = {
+    padding: '12px',
+    border: "1px solid #ccc",
+    borderRadius: "4px",
+    width: '100%',
+    marginBottom: '10px',
+  };
+  
+  buttonForShares = {
+    padding: "12px",
+    border: "none",
+    borderRadius: "4px",
+    backgroundColor: "#6495ED",
+    color: "#fff",
+    cursor: "pointer",
+    width: '100%',
+  };
+  
+  tickerStyle = {
+    marginBottom: '10px',
+  };
+  
+  nameStyle = {
+    marginBottom: '10px',
+  };
+  
+  priceStyle = {
+    color: 'orange',
+    marginBottom: '10px',
+  };
+  
+  industryStyle = {
+    marginBottom: '10px',
+  };
+  
+  marketCapStyle = {
+    marginBottom: '10px',
+  };
+  
+}
   
   export default DisplayStocks;
   
