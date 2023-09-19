@@ -1,5 +1,5 @@
 from server.config import app, db
-from flask import request, session, jsonify, render_template
+from flask import request, session, render_template
 from server.models import db, User, UserStock, Stock
 from flask_migrate import Migrate
 import yfinance as yf

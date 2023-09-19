@@ -10,7 +10,7 @@ class User(db.Model, SerializerMixin):
     _password_hash = db.Column(db.String(50), nullable=False)
     account_balance = db.Column(db.Integer, default=1000)
 
-    my_stocks = db.relationship('UserStock', backref='user', cascade='all' )
+    my_stocks = db.relationship('UserStock', backref='user', cascade='all')
 
     serialize_rules = ('-my_stocks.user','-_password_hash',)
 

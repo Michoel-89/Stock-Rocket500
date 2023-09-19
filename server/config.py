@@ -6,8 +6,8 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 from flask_bcrypt import Bcrypt
 import os
+
 current_directory = os.getcwd()
-print(current_directory)
 # Instantiate app, set attributes
 app = Flask(__name__, static_url_path='', static_folder='../client/build', template_folder='../client/build')
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{current_directory}/server/instance/app.db'
